@@ -34,3 +34,15 @@ class Stack:
             self.top -= 1
             self.length -= 1
             return n
+        
+class Rules:
+
+    def __init__ (self,cur_state,input_word,stack_take,next_state,stack_store):
+        self.cur_state = cur_state
+        self.input_word = input_word
+        self.stack_take = stack_take
+        self.next_state = next_state
+        self.stack_store = stack_store
+
+    def displayRules(self):
+        print("<"+self.cur_state+","+self.input_word+","+self.stack_take+","+self.next_state+","+self.stack_store+">",end='')
