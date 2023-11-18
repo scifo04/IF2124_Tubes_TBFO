@@ -12,6 +12,10 @@ global start_stack
 start_stack = ''
 global final_state
 final_state = ''
+global epsilon
+epsilon = ''
+global any
+any = ''
 global pda_rules
 pda_rules = []
 global html_tags

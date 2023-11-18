@@ -1,12 +1,18 @@
-blank html done bitch fuck nigga crack
-<html> <head> <body> <niggawat>
-Z </html> </head> </body> </niggawat>
+blank html head body title done
+<html> <head> <body> <title>
+Z </html> </head> </body> </title>
 blank
 Z
 done
+e
+A
 blank e Z done Z
 blank <html> Z html </html>Z
+html <head> A head </head>A
+html <body> A body </body>A
 html e </html> done e
-a b c d e
-b c d e f
-c d e f g
+head e </head> html e
+head <title> </head> title </title></head>
+head <link> </head> head <head>
+title e </title> head e
+body e </body> html e
