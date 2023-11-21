@@ -16,8 +16,22 @@ global epsilon
 epsilon = ''
 global any
 any = ''
+global comment
+comment = ''
+global allowtext
+allowtext = ''
 global pda_rules
 pda_rules = []
+global attribute_rules
+attribute_rules = []
+global attribute_col
+attribute_col = 0
+global attribute_row
+attribute_row = 0
+global differentiator
+differentiator = ''
+global compulsorier
+compulsorier = ''
 global html_tags
 html_tags = []
 global check_Konso
