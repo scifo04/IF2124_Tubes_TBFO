@@ -89,7 +89,7 @@ for i in range(len(data.html_tags)):
                     # print("SUCCESSSSSSSSSSS")
                     check = False
                 else:
-                    # print("REJECTED")
+                    print("REJECTED")
                     quit()
         else:
             print(end='')
@@ -99,6 +99,16 @@ for i in range(len(data.html_tags)):
         #     check = False
         # else:
         #     print("REJECTED")
+
+# CHANGE COMMENTS TO ITS COMMENT VERSION
+comment_counter = 0
+for i in range(len(data.html_tags)):
+    # print(data.comment,data.html_tags[i][:2]+data.html_tags[i][-1:])
+    if data.comment == data.html_tags[i][:2]+data.html_tags[i][-1:]:
+        data.html_tags[i] = data.comment
+        comment_counter += 1
+for i in range(comment_counter):
+    data.html_tags.remove(data.comment)
 
 # CHANGE ALL TAGS TO SHORTER VERSION
 for i in range(len(data.html_tags)):
