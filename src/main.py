@@ -11,7 +11,7 @@ parser.add_argument("txt_file",type=str)
 parser.add_argument("html_file",type=str)
 args = parser.parse_args()
 txt_file = args.txt_file
-html_file = args.html_file
+html_file = "../tests/"+args.html_file
 
 if (os.path.exists(txt_file) and os.path.exists(html_file)):
     print("PDA and html exists. Please wait until the compilation finish!")
