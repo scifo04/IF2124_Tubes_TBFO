@@ -55,7 +55,7 @@ def attribute_check(a,b):
 def txt_read(file):
     txt = open(file,'r')
     reader = txt.read()
-    local = [[('') for j in range(1000)] for i in range(13)]
+    local = [[('') for j in range(2000)] for i in range(13)]
     rules_mapper = [('') for i in range(5)]
     row_att = 0
     col_att = 0
