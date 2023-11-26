@@ -29,4 +29,4 @@ Di bawah ini adalah prosess instalasi dan penggunaan program
    ```bash
    py main.py pda.txt <nama_dokumen_html>
    ```
-Dokumen HTML disimpan di dalam folder  ```bash tests```
+Dokumen HTML disimpan di dalam folder  ```tests```
