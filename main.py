@@ -110,7 +110,7 @@ for i in range(len(data.html_tags)):
 for i in range(comment_counter):
     data.html_tags.remove(data.comment)
 
-# CHANGE ALL TAGS TO SHORTER VERSION
+# CHANGE ALL TAGS TO VALIDATED INPUT VERSION
 for i in range(len(data.html_tags)):
     data.html_tags[i] = read.shortenInput(data.html_tags[i])
 

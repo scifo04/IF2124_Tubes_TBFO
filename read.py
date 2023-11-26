@@ -55,7 +55,7 @@ def attribute_check(a,b):
 def txt_read(file):
     txt = open(file,'r')
     reader = txt.read()
-    local = [[('') for j in range(2000)] for i in range(13)]
+    local = [[('') for j in range(2000)] for i in range(14)]
     rules_mapper = [('') for i in range(5)]
     row_att = 0
     col_att = 0
@@ -67,29 +67,29 @@ def txt_read(file):
     allowcount = False
 
     for i in reader:
-        if (part != 13):
+        if (part != 14):
             if (i == '~'):
-                part = 13
+                part = 14
                 loc = 0
                 allowappend = False
             if (allowappend):
                 if (i != ' ' and i != '\n'):
-                    if (part != 12):
+                    if (part != 13):
                         local[part][loc] = local[part][loc] + i
                     else:
                         rules_mapper[map] = rules_mapper[map] + i
                 elif (i == ' '):
-                    if (part != 12):
+                    if (part != 13):
                         loc += 1
                     else:
                         map += 1
                 elif (i == '\n'):
-                    if (part != 12):
+                    if (part != 13):
                         part += 1
                         loc = 0
                     else:
                         rules = Rules(rules_mapper[0],rules_mapper[1],rules_mapper[2],rules_mapper[3],rules_mapper[4])
-                        local[12][loc] = rules
+                        local[13][loc] = rules
                         rules_mapper = [('') for i in range(5)]
                         map = 0
                         loc += 1
@@ -126,9 +126,11 @@ def txt_read(file):
     data.comment = local[8][0]
     data.allowtext = local[9]
     data.differentiator = local[10][0]
-    data.compulsorier = local[11]
-    data.pda_rules = local[12]
+    data.compulsorier = local[12]
+    data.contente = local[11][0]
+    data.pda_rules = local[13]
 
+    print(data.contente)
     data.states = shrink_list(data.states)
     data.inputs = shrink_list(data.inputs)
     data.stacks = shrink_list(data.stacks)
@@ -146,17 +148,24 @@ def html_read(file):
     reader = html.read()
     text = ''
     local_html = []
+    append_content = False
     for i in reader:
         if (i == '<'):
             text = text + i
             data.check_Konso = True
+            append_content = False
+        elif i != "<" and i != ">" and data.check_Konso and not append_content:
+            text = text + i
         elif (i == '>'):
             text = text + i
             data.check_Konso = False
+            append_content = True
             local_html.append(text)
             text = ''
-        elif (data.check_Konso):
-            text = text+i
+        elif (i != " " and i != "<" and i != ">" and append_content and not data.check_Konso):
+            if (i != "\n"):
+                local_html.append(data.contente)
+                append_content = False
     data.html_tags = local_html
     for i in range(len(data.html_tags)):
         data.html_tags[i] = "[" + ((data.html_tags[i][1:][:-1])).upper() + "]"

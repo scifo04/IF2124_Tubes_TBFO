@@ -34,5 +34,7 @@ global compulsorier
 compulsorier = ''
 global html_tags
 html_tags = []
+global contente
+contente = ""
 global check_Konso
 check_Konso = False
