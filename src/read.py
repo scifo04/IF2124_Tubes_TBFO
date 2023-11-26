@@ -10,7 +10,7 @@ def error_msg(line : int, file : str):
         if ln == line:
             break
     t = '<h5 cladss="label">First name:</h5><br>'
-    att = acquire_attribute(t)
+    att = acquire_attribute()
     print(att)
     print(f"Syntax error on line {line} : {s}")
 
