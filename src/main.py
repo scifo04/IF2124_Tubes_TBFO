@@ -155,8 +155,10 @@ while (True):
         print("Syntax Error on line 1: ")
         break
     else:
+        # print(current_state)
+        # print(data.html_tags[iterator])
         # S_State.displayStack()
-        # read.txt_read(txt_file)
+        read.txt_read(txt_file)
         rules = read.getContained_Rules(data.pda_rules,current_state,data.html_tags[iterator],current_top)
         rules_eps = read.getContained_Rules(data.pda_rules,current_state,data.epsilon,data.html_tags[iterator])
         if (len(S_State.compon) > 1):
