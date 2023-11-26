@@ -196,7 +196,7 @@ while (True):
                     current_state = rules_eps.next_state
                     iterator += 1
                 else:
-                    read.error_msg(data.line[iterator], html_file)
+                    read.error_msg(data.line[iterator], html_file, data.html_tags[iterator])
                     break
             else:
                 # rules_eps2.displayRules()
@@ -208,7 +208,7 @@ while (True):
                 current_state = rules_eps2.next_state
                 iterator += 1
         else:
-            read.error_msg(data.line[iterator], html_file)
+            read.error_msg(data.line[iterator], html_file, data.html_tags[iterator])
             break
         if (current_state == data.final_state):
             print("ACCEPTED")
