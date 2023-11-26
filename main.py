@@ -151,7 +151,7 @@ while (True):
         print("ACCEPTED")
         break
     elif (len(data.html_tags) == 0 and data.check_Konso == True):
-        print("REJECTED")
+        print("SYNTAX ERROR")
         break
     else:
         print(current_state)
@@ -198,7 +198,7 @@ while (True):
                     current_state = rules_eps.next_state
                     iterator += 1
                 else:
-                    print("THIS REJECTED")
+                    print("SYNTAX ERROR")
                     break
             else:
                 # rules_eps2.displayRules()
@@ -210,7 +210,7 @@ while (True):
                 current_state = rules_eps2.next_state
                 iterator += 1
         else:
-            print("REJECTED")
+            print("SYNTAX ERROR")
             break
         if (current_state == data.final_state):
             print("ACCEPTED")
