@@ -55,7 +55,7 @@ def attribute_check(a,b):
 def txt_read(file):
     txt = open(file,'r')
     reader = txt.read()
-    local = [[('') for j in range(700)] for i in range(13)]
+    local = [[('') for j in range(1000)] for i in range(13)]
     rules_mapper = [('') for i in range(5)]
     row_att = 0
     col_att = 0
@@ -128,7 +128,6 @@ def txt_read(file):
     data.differentiator = local[10][0]
     data.compulsorier = local[11]
     data.pda_rules = local[12]
-    data.attribute_rules = attributes
 
     data.states = shrink_list(data.states)
     data.inputs = shrink_list(data.inputs)
@@ -136,7 +135,6 @@ def txt_read(file):
     data.allowtext = shrink_list(data.allowtext)
     data.pda_rules = shrink_list(data.pda_rules)
     data.compulsorier = shrink_list(data.compulsorier)
-    data.attribute_col = len(attributes[0])
     data.attribute_row = len(data.inputs)
 
     # print(data.attribute_col,data.attribute_row)
