@@ -9,9 +9,9 @@ def error_msg(line : int, file : str):
         ln += 1
         if ln == line:
             break
-    t = '<h5 cladss="label">First name:</h5><br>'
-    att = acquire_attribute()
-    print(att)
+    # t = '<h5 cladss="label">First name:</h5><br>'
+    # att = acquire_attribute()
+    # print(att)
     print(f"Syntax error on line {line} : {s}")
 
 def shrink_list(liste):
