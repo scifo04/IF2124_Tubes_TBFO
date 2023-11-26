@@ -27,6 +27,7 @@ elif (not os.path.exists(txt_file) and os.path.exists(html_file)):
 
 read.txt_read(txt_file)
 read.html_read(html_file)
+# print(data.line)
 
 S_State = Stack()
 S_State.push('Z')
@@ -148,17 +149,14 @@ for i in range(len(data.html_tags)):
 
 while (True):
     if (len(data.html_tags) == 0 and data.check_Konso == False):
-        print("ACCEPTED")
+        print("Syntax Error on line 1: ")
         break
     elif (len(data.html_tags) == 0 and data.check_Konso == True):
-        print("SYNTAX ERROR")
+        print("Syntax Error on line 1: ")
         break
     else:
-        #print(current_state)
-        #print(data.html_tags[iterator])
-        #print(current_top)
-        #S_State.displayStack()
-        read.txt_read(txt_file)
+        # S_State.displayStack()
+        # read.txt_read(txt_file)
         rules = read.getContained_Rules(data.pda_rules,current_state,data.html_tags[iterator],current_top)
         rules_eps = read.getContained_Rules(data.pda_rules,current_state,data.epsilon,data.html_tags[iterator])
         if (len(S_State.compon) > 1):
@@ -198,7 +196,7 @@ while (True):
                     current_state = rules_eps.next_state
                     iterator += 1
                 else:
-                    print("SYNTAX ERROR")
+                    read.error_msg(data.line[iterator], html_file)
                     break
             else:
                 # rules_eps2.displayRules()
@@ -210,7 +208,7 @@ while (True):
                 current_state = rules_eps2.next_state
                 iterator += 1
         else:
-            print("SYNTAX ERROR")
+            read.error_msg(data.line[iterator], html_file)
             break
         if (current_state == data.final_state):
             print("ACCEPTED")

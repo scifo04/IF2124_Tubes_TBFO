@@ -1,6 +1,19 @@
 from objects import Rules
 import data
 
+def error_msg(line : int, file : str):
+    f = open(file,'r')
+    ln = 0; s = ""
+    for st in f:
+        s = st
+        ln += 1
+        if ln == line:
+            break
+    t = '<h5 cladss="label">First name:</h5><br>'
+    att = acquire_attribute(t)
+    print(att)
+    print(f"Syntax error on line {line} : {s}")
+
 def shrink_list(liste):
     i = 0
     if (liste[len(liste)-1] == ''):
@@ -148,6 +161,7 @@ def html_read(file):
     reader = html.read()
     text = ''
     local_html = []
+    ln = 1
     append_content = False
     for i in reader:
         if (i == '<'):
@@ -161,11 +175,15 @@ def html_read(file):
             data.check_Konso = False
             append_content = True
             local_html.append(text)
+            data.line.append(ln)
             text = ''
         elif (i != " " and i != "<" and i != ">" and append_content and not data.check_Konso):
             if (i != "\n"):
                 local_html.append(data.contente)
+                data.line.append(ln)
                 append_content = False
+            elif (i == "\n") :
+                ln += 1
     data.html_tags = local_html
     for i in range(len(data.html_tags)):
         data.html_tags[i] = "[" + ((data.html_tags[i][1:][:-1])).upper() + "]"
