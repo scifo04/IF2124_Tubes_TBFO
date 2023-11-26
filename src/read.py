@@ -11,6 +11,7 @@ def error_msg(line : int, file : str, token : str):
             break
     att = tokenisasi(s)
     atte = tokenisasi_primitive(s)
+    # print(atte)
     for i in range (len(att)):
         att[i] = shortenInput(att[i])
     print(f"Syntax error on line {line} : ",end="")

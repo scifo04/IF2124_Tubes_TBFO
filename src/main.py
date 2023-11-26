@@ -101,6 +101,8 @@ for i in range(len(data.pda_rules)):
         # else:
         #     print("REJECTED")
 
+# print(data.html_tags)
+
 # CHANGE COMMENTS TO ITS COMMENT VERSION
 comment_counter = 0
 for i in range(len(data.html_tags)):
@@ -108,8 +110,6 @@ for i in range(len(data.html_tags)):
     if data.comment == data.html_tags[i][:2]+data.html_tags[i][-1:]:
         data.html_tags[i] = data.comment
         comment_counter += 1
-for i in range(comment_counter):
-    data.html_tags.remove(data.comment)
 
 # CHANGE ALL TAGS TO VALIDATED INPUT VERSION
 for i in range(len(data.html_tags)):
@@ -147,6 +147,8 @@ for i in range(len(data.html_tags)):
 #             append_for_content = True
 #             append_for_box = False
 
+# print(data.html_tags)
+
 while (True):
     if (len(data.html_tags) == 0 and data.check_Konso == False):
         print("Syntax Error on line 1: ")
@@ -156,7 +158,7 @@ while (True):
         break
     else:
         # print(current_state)
-        # print(data.html_tags[iterator])
+        # print(data.html_tags[iterator],data.line[iterator])
         # S_State.displayStack()
         read.txt_read(txt_file)
         rules = read.getContained_Rules(data.pda_rules,current_state,data.html_tags[iterator],current_top)
