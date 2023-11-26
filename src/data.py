@@ -1,5 +1,6 @@
 from objects import Rules
-
+global line
+line = []
 global states
 states = []
 global inputs
