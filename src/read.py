@@ -1,7 +1,7 @@
 from objects import Rules
 import data
 
-def error_msg(line : int, file : str):
+def error_msg(line : int, file : str, token : str):
     f = open(file,'r')
     ln = 0; s = ""
     for st in f:
@@ -9,10 +9,17 @@ def error_msg(line : int, file : str):
         ln += 1
         if ln == line:
             break
-    # t = '<h5 cladss="label">First name:</h5><br>'
-    # att = acquire_attribute()
-    # print(att)
-    print(f"Syntax error on line {line} : {s}")
+    att = tokenisasi(s)
+    atte = tokenisasi_primitive(s)
+    for i in range (len(att)):
+        att[i] = shortenInput(att[i])
+    print(f"Syntax error on line {line} : ",end="")
+    for i in range (len(att)):
+        if (att[i] == token):
+            print("\033[91m"+atte[i]+"\033[0m",end="")
+        else:
+            print(atte[i],end="")
+    print()
 
 def shrink_list(liste):
     i = 0
@@ -304,3 +311,58 @@ def removeCompulsorier(liste):
         if data.compulsorier in liste[i]:
             liste[i] = liste[i][:-len(data.compulsorier)]
     return liste
+
+def tokenisasi(stringe):
+    token_list = []
+    append_tag = False
+    append_content = False
+    text = ""
+    for i in stringe:
+        if i == "<":
+            text = text+i
+            append_tag = True
+            append_content = False
+        elif i != "<" and i != ">" and append_tag and not append_content:
+            text = text + i
+        elif i == ">":
+            text = text+i
+            append_tag = False
+            append_content = True
+            token_list.append(text)
+            text = ""
+        elif i != " " and i !="<" and i !=">" and append_content and not append_tag:
+            if (i != "\n"):
+                token_list.append("[CONTENT]")
+                append_content = False
+    for i in range(len(token_list)):
+        token_list[i] = "[" + token_list[i][1:][:-1].upper() +"]"
+    return token_list
+
+def tokenisasi_primitive(stringe):
+    token_list = []
+    append_tag = False
+    append_content = False
+    text = ""
+    for i in stringe:
+        if i == "<" and not append_content and not append_tag:
+            text = text+i
+            append_tag = True
+            append_content = False
+        elif i != "<" and i != ">" and append_tag and not append_content:
+            text = text + i
+        elif i == ">":
+            text = text+i
+            append_tag = False
+            append_content = True
+            token_list.append(text)
+            text = ""
+        elif i !="<" and i !=">" and append_content and not append_tag:
+            text = text + i
+        elif i == "<" and append_content and not append_tag:
+            if text != "":
+                token_list.append(text)
+            text = ""
+            text = text+i
+            append_tag = True
+            append_content = False
+    return token_list

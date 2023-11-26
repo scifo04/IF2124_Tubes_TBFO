@@ -155,8 +155,10 @@ while (True):
         print("Syntax Error on line 1: ")
         break
     else:
+        # print(current_state)
+        # print(data.html_tags[iterator])
         # S_State.displayStack()
-        # read.txt_read(txt_file)
+        read.txt_read(txt_file)
         rules = read.getContained_Rules(data.pda_rules,current_state,data.html_tags[iterator],current_top)
         rules_eps = read.getContained_Rules(data.pda_rules,current_state,data.epsilon,data.html_tags[iterator])
         if (len(S_State.compon) > 1):
@@ -196,7 +198,7 @@ while (True):
                     current_state = rules_eps.next_state
                     iterator += 1
                 else:
-                    read.error_msg(data.line[iterator], html_file)
+                    read.error_msg(data.line[iterator], html_file, data.html_tags[iterator])
                     break
             else:
                 # rules_eps2.displayRules()
@@ -208,7 +210,7 @@ while (True):
                 current_state = rules_eps2.next_state
                 iterator += 1
         else:
-            read.error_msg(data.line[iterator], html_file)
+            read.error_msg(data.line[iterator], html_file, data.html_tags[iterator])
             break
         if (current_state == data.final_state):
             print("ACCEPTED")
