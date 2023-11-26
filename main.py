@@ -58,41 +58,41 @@ for i in range(len(data.pda_rules)):
         quit()
 
 # CHECK IF THE ATTRIBUTES CONTAINS COMPULSORY OBJECT
-for i in range(len(data.html_tags)):
-    if (not read.containsChar(data.html_tags[i],data.differentiator)):
-        counter = read.getElmt(data.inputs,read.shortenInput(data.html_tags[i]))
-        for j in range (len(data.attribute_rules[counter])):
-            if data.compulsorier in data.attribute_rules[counter][j]:
-                for k in range(len(read.acquire_attribute(data.html_tags[i]))):
-                    # print(read.acquire_attribute(data.html_tags[i])[k],data.attribute_rules[counter][j][:-len(data.compulsorier)])
-                    if read.attribute_check(data.attribute_rules[counter][j][:-len(data.compulsorier)],read.acquire_attribute(data.html_tags[i])[k]):
-                        print("",end='')
-                        break
-                    else:
-                        print("COMPULSORY REJECTED")
-                        quit()
+# for i in range(len(data.html_tags)):
+#     if (not read.containsChar(data.html_tags[i],data.differentiator)):
+#         counter = read.getElmt(data.inputs,read.shortenInput(data.html_tags[i]))
+#         for j in range (len(data.attribute_rules[counter])):
+#             if data.compulsorier in data.attribute_rules[counter][j]:
+#                 for k in range(len(read.acquire_attribute(data.html_tags[i]))):
+#                     # print(read.acquire_attribute(data.html_tags[i])[k],data.attribute_rules[counter][j][:-len(data.compulsorier)])
+#                     if read.attribute_check(data.attribute_rules[counter][j][:-len(data.compulsorier)],read.acquire_attribute(data.html_tags[i])[k]):
+#                         print("",end='')
+#                         break
+#                     else:
+#                         print("COMPULSORY REJECTED")
+#                         quit()
 
 # CHECK IF THE WRITTEN ATTRIBUTES EXISTS
-for i in range(len(data.html_tags)):
-    if (not read.containsChar(data.html_tags[i],data.differentiator)):
-        counter = read.getElmt(data.inputs,read.shortenInput(data.html_tags[i]))
-        # print(read.shortenInput(data.html_tags[i]),counter,read.removeCompulsorier(read.shrink_list(data.attribute_rules[counter])),read.acquire_attribute(data.html_tags[i]))
-        current_checker = read.removeCompulsorier(read.shrink_list(data.attribute_rules[counter]))
-        current_target = read.acquire_attribute(data.html_tags[i])
-        if (len(current_target) != 0):
-            for j in range (len(current_target)):
-                for k in range (len(current_checker)):
-                    if (read.attribute_check(current_checker[k],current_target[j])):
-                        # print("SUCCESS")
-                        check = True
-                if (check):
-                    # print("SUCCESSSSSSSSSSS")
-                    check = False
-                else:
-                    print("REJECTED")
-                    quit()
-        else:
-            print(end='')
+# for i in range(len(data.html_tags)):
+#     if (not read.containsChar(data.html_tags[i],data.differentiator)):
+#         counter = read.getElmt(data.inputs,read.shortenInput(data.html_tags[i]))
+#         # print(read.shortenInput(data.html_tags[i]),counter,read.removeCompulsorier(read.shrink_list(data.attribute_rules[counter])),read.acquire_attribute(data.html_tags[i]))
+#         current_checker = read.removeCompulsorier(read.shrink_list(data.attribute_rules[counter]))
+#         current_target = read.acquire_attribute(data.html_tags[i])
+#         if (len(current_target) != 0):
+#             for j in range (len(current_target)):
+#                 for k in range (len(current_checker)):
+#                     if (read.attribute_check(current_checker[k],current_target[j])):
+#                         # print("SUCCESS")
+#                         check = True
+#                 if (check):
+#                     # print("SUCCESSSSSSSSSSS")
+#                     check = False
+#                 else:
+#                     print("REJECTED")
+#                     quit()
+#         else:
+#             print(end='')
             # print("SUCCESS")
         # if (check):
         #     print("SUCCESSSSSS")
@@ -101,48 +101,50 @@ for i in range(len(data.html_tags)):
         #     print("REJECTED")
 
 # CHANGE COMMENTS TO ITS COMMENT VERSION
-comment_counter = 0
-for i in range(len(data.html_tags)):
-    # print(data.comment,data.html_tags[i][:2]+data.html_tags[i][-1:])
-    if data.comment == data.html_tags[i][:2]+data.html_tags[i][-1:]:
-        data.html_tags[i] = data.comment
-        comment_counter += 1
-for i in range(comment_counter):
-    data.html_tags.remove(data.comment)
+# comment_counter = 0
+# for i in range(len(data.html_tags)):
+#     # print(data.comment,data.html_tags[i][:2]+data.html_tags[i][-1:])
+#     if data.comment == data.html_tags[i][:2]+data.html_tags[i][-1:]:
+#         data.html_tags[i] = data.comment
+#         comment_counter += 1
+# for i in range(comment_counter):
+#     data.html_tags.remove(data.comment)
 
 # CHANGE ALL TAGS TO SHORTER VERSION
 for i in range(len(data.html_tags)):
     data.html_tags[i] = read.shortenInput(data.html_tags[i])
 
+# print(data.html_tags)
+
 # CHECK IF THE TEXT IS IN THE RIGHT PLACE
-html = open(html_file,'r')
-reader = html.read()
-if (len(reader) != 0):
-    current_box = ""
-    appender = ""
-    append_for_box = False
-    append_for_content = True
-    for i in reader:
-        # print(i)
-        if (i != ' ' and i != '<' and i != '>' and append_for_content):
-            if (read.isExists(data.allowtext,read.shortenInput(current_box))):
-                print(end="")
-            else:
-                if (i != ' ' and i != '\n'):
-                    print("REJECTED")
-                    quit()
-        elif (i != '<' and i != '>' and append_for_box):
-            appender = appender + i
-        elif (i == '<' and append_for_content):
-            append_for_content = False
-            append_for_box = True
-            appender = appender + i
-        elif (i == '>' and append_for_box):
-            appender = appender + i
-            current_box = '[' + appender[1:][:-1].upper() + ']'
-            appender = ""
-            append_for_content = True
-            append_for_box = False
+# html = open(html_file,'r')
+# reader = html.read()
+# if (len(reader) != 0):
+#     current_box = ""
+#     appender = ""
+#     append_for_box = False
+#     append_for_content = True
+#     for i in reader:
+#         # print(i)
+#         if (i != ' ' and i != '<' and i != '>' and append_for_content):
+#             if (read.isExists(data.allowtext,read.shortenInput(current_box))):
+#                 print(end="")
+#             else:
+#                 if (i != ' ' and i != '\n'):
+#                     print("REJECTED")
+#                     quit()
+#         elif (i != '<' and i != '>' and append_for_box):
+#             appender = appender + i
+#         elif (i == '<' and append_for_content):
+#             append_for_content = False
+#             append_for_box = True
+#             appender = appender + i
+#         elif (i == '>' and append_for_box):
+#             appender = appender + i
+#             current_box = '[' + appender[1:][:-1].upper() + ']'
+#             appender = ""
+#             append_for_content = True
+#             append_for_box = False
 
 while (True):
     if (len(data.html_tags) == 0 and data.check_Konso == False):
@@ -152,10 +154,10 @@ while (True):
         print("REJECTED")
         break
     else:
-        # print(current_state)
-        # print(data.html_tags[iterator])
-        # print(current_top)
-        # S_State.displayStack()
+        print(current_state)
+        print(data.html_tags[iterator])
+        print(current_top)
+        S_State.displayStack()
         read.txt_read(txt_file)
         rules = read.getContained_Rules(data.pda_rules,current_state,data.html_tags[iterator],current_top)
         rules_eps = read.getContained_Rules(data.pda_rules,current_state,data.epsilon,data.html_tags[iterator])

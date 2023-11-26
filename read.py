@@ -55,7 +55,7 @@ def attribute_check(a,b):
 def txt_read(file):
     txt = open(file,'r')
     reader = txt.read()
-    local = [[('') for j in range(300)] for i in range(13)]
+    local = [[('') for j in range(700)] for i in range(13)]
     rules_mapper = [('') for i in range(5)]
     row_att = 0
     col_att = 0
@@ -126,7 +126,7 @@ def txt_read(file):
     data.comment = local[8][0]
     data.allowtext = local[9]
     data.differentiator = local[10][0]
-    data.compulsorier = local[11][0]
+    data.compulsorier = local[11]
     data.pda_rules = local[12]
     data.attribute_rules = attributes
 
@@ -135,8 +135,10 @@ def txt_read(file):
     data.stacks = shrink_list(data.stacks)
     data.allowtext = shrink_list(data.allowtext)
     data.pda_rules = shrink_list(data.pda_rules)
+    data.compulsorier = shrink_list(data.compulsorier)
     data.attribute_col = len(attributes[0])
     data.attribute_row = len(data.inputs)
+
     # print(data.attribute_col,data.attribute_row)
     # print(data.attribute_rules)
     # print(data.allowtext)
@@ -186,6 +188,14 @@ def isExists(liste,stringe):
             return check
     return check
 
+def isSubStringList(liste,stringe):
+    check = False
+    for i in range(len(liste)):
+        if attribute_check(liste[i],stringe):
+            check = True
+            return check
+    return check
+
 def getElmt(liste,stringe):
     IDX_UNDEF = -1
     for i in range(len(liste)):
@@ -194,6 +204,7 @@ def getElmt(liste,stringe):
     return IDX_UNDEF
 
 def shortenInput(stringe):
+    attribute_list = acquire_attribute(stringe)
     checkpoint = stringe[0]
     newstring = ''
     for i in range(1,len(stringe)):
@@ -203,10 +214,17 @@ def shortenInput(stringe):
             a = i
             for j in range (a):
                 newstring = newstring + stringe[j]
-            return newstring+stringe[len(stringe)-1]
+            break
         else:
             checkpoint = stringe[i]
-    return stringe
+    if len(attribute_list) > 0:
+        for i in range(len(attribute_list)):
+            if (attribute_list[i] != ''):
+                newstring = newstring + "_" + attribute_list[i]
+        newstring = newstring + "]"
+        return newstring
+    else:
+        return stringe
 
 def acquire_attribute(stringe):
     attribute_list = []
@@ -233,6 +251,24 @@ def acquire_attribute(stringe):
                     tag_count = 0
                 else:
                     return "REJECTED"
+    for i in range(len(attribute_list)):
+        for j in range(len(attribute_list[i])):
+            if attribute_list[i][j] == '=' and not isSubStringList(data.compulsorier,attribute_list[i]):
+                attribute_list[i] = attribute_list[i][:j]
+                break
+            elif isSubStringList(data.compulsorier,attribute_list[i]):
+                attribute_list[i] = attribute_list[i]
+                break
+    for i in range(len(attribute_list)):
+        for j in range(i):
+            if attribute_list[i] < attribute_list[j]:
+                temp = attribute_list[i]
+                attribute_list[i] = attribute_list[j]
+                attribute_list[j] = temp
+    for i in range(len(attribute_list)):
+        for j in range(i):
+            if attribute_list[i] == attribute_list[j]:
+                attribute_list[j] = ''
     return attribute_list
 
 def containsChar(stringe,chare):
