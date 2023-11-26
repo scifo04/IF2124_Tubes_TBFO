@@ -130,7 +130,6 @@ def txt_read(file):
     data.contente = local[11][0]
     data.pda_rules = local[13]
 
-    print(data.contente)
     data.states = shrink_list(data.states)
     data.inputs = shrink_list(data.inputs)
     data.stacks = shrink_list(data.stacks)

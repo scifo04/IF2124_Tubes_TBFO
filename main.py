@@ -49,12 +49,12 @@ current_top = data.start_stack
 # print(data.html_tags)
 check = False
 
-# CHECK IF STATE IS VALID WITH THE RULES
+# CHECK IF STATE IS VALID WITH THE RULES / VALIDASI STATE TERHADAP ATURAN PDA
 for i in range(len(data.pda_rules)):
     if not (read.isExists(data.states,data.pda_rules[i].cur_state)):
         print(data.states[i])
         print(data.pda_rules[i].cur_state)
-        print("NON EXISTENT STATE DETECTED: REJECTED")
+        print("NON EXISTENT STATE DETECTED: SYNTAX ERROR")
         quit()
 
 # CHECK IF THE ATTRIBUTES CONTAINS COMPULSORY OBJECT
@@ -100,7 +100,7 @@ for i in range(len(data.pda_rules)):
         # else:
         #     print("REJECTED")
 
-# CHANGE COMMENTS TO ITS COMMENT VERSION
+# CHANGE COMMENTS TO ITS COMMENT VERSION / MEMPERSINGKAT TOKEN UNTUK KOMEN
 comment_counter = 0
 for i in range(len(data.html_tags)):
     # print(data.comment,data.html_tags[i][:2]+data.html_tags[i][-1:])
@@ -148,16 +148,16 @@ for i in range(len(data.html_tags)):
 
 while (True):
     if (len(data.html_tags) == 0 and data.check_Konso == False):
-        print("ACCEPTED")
+        print("SYNTAX ERROR")
         break
     elif (len(data.html_tags) == 0 and data.check_Konso == True):
         print("SYNTAX ERROR")
         break
     else:
-        print(current_state)
-        print(data.html_tags[iterator])
-        print(current_top)
-        S_State.displayStack()
+        # print(current_state)
+        # print(data.html_tags[iterator])
+        # print(current_top)
+        # S_State.displayStack()
         read.txt_read(txt_file)
         rules = read.getContained_Rules(data.pda_rules,current_state,data.html_tags[iterator],current_top)
         rules_eps = read.getContained_Rules(data.pda_rules,current_state,data.epsilon,data.html_tags[iterator])
